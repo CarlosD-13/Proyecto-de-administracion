@@ -1,0 +1,255 @@
+﻿@model IEnumerable<Proyecto_Admin_Remix.Models.Propiedades>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="container">
+        <!--Logo de la parte de arriba-->
+        <div class="container">
+
+            <img src="~/images/Logo Inmobiliria.jpg" width="400" height="125" style="margin-top:-20px" />
+            <h1 style="font-family: 'Modern No. 20'; font-size: 55px;
+                text-align:right; margin-top:-68px; margin-right: +60px">
+                Inmobiliaria Soriano Perez
+            </h1>
+
+        </div>
+
+        <!--Barra de navegacion-->
+        <div class="navbar navbar-inverse navbar" style="background-color:#175592">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav" style="margin-left:+500px">
+                        <li style="margin-left:-350px; font-family: 'Modern No. 20'; font-size: 20px">@Html.ActionLink("Inicio", "Index", "Propiedades")</li>
+                        <li style="margin-left:-200px; font-family: 'Modern No. 20'; font-size: 20px">@Html.ActionLink("Acerca de", "About", "Home")</li>
+                        <li style="margin-left:-50px; font-family: 'Modern No. 20'; font-size: 20px">@Html.ActionLink("Contacto", "Contact", "Home")</li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+        <!--Banner con titulo-->
+        <div class="container" style="margin-left:-15px">
+
+            <img src="~/images/ImagenPrincipal-1.jpg" style="
+           width: 1140px;
+           height: 115px;
+           margin: 0 -1px;
+           margin-top: -20px;
+           background-position:center;
+           object-fit:none">
+
+            <h1 style="font-family:'Berlin Sans FB'; color:#FFFFFF; margin-top:-80px; margin-left:+15px">Propiedades</h1>
+        </div>
+
+
+        <!--Buscador-->
+        <div class="container" style="margin-top: +80px; border:solid; width:20%; margin-left:+0px">
+
+            <center>
+                <button type="button" class="btn btn-primary" style="margin-top:+20px">Ventas</button><button type="button" class="btn btn-primary" style="margin-top:+20px">Alquiler</button>
+            </center>
+            <div class="container" style="margin-bottom:20px; margin-left:-20px">
+                <h5 style="font-family: 'Modern No. 20'; font-size:15px">Habitaciones         <input type="text" size="5" id="habitaciones" name="habitaciones" style="margin-left:+40px" /></h5>
+                <h5 style="font-family: 'Modern No. 20'; font-size:15px">Baños                <input type="text" size="5" id="baños" name="baños" style="margin-left:+81px" /></h5>
+                <h5 style="font-family: 'Modern No. 20'; font-size:15px">Parqueo              <input type="text" size="5" id="parqueo" name="parqueo" style="margin-left:+68px" /></h5>
+            </div>
+        </div>
+
+        <!--Redes Sociales-->
+        <div class="container" style="margin-top: +40px; border:solid; width:20%; margin-left:+0px">
+
+            <center>
+                <h3 style="margin-top:+20px; font-family: 'Modern No. 20'; font-size:20px">Nuestras Redes</h3>
+                <hr color="#000000" size="3" />
+            </center>
+
+
+
+            <div class="container" style="margin-bottom:20px; margin-left:-20px">
+                <input type="image" src="~/images/facebook.jpeg" id="Facebook" name="facebook" style="
+                    width:55px;
+                    height:55px;
+                    border-radius:150px;" />
+
+                <input type="image" src="~/images/instagram.jpg" id="instagram" name="instagram" style="
+                    width:80px;
+                    height:60px;
+                    border-radius:150px;" />
+
+                <input type="image" src="~/images/twitter.jpg" id="twitter" name="twitter" style="
+                    width:60px;
+                    height:60px;
+                    border-radius:150px;" />
+            </div>
+        </div>
+
+        <!--Container de las propiedades-->
+        <div class="container" style=" margin-top:-400px; margin-left:+270px; width:76%; height:100%;">
+            <a asp-action="Create" class="btn btn-success">Añadir</a>
+
+            <div class="row" style="margin-top:+4px">
+                @foreach (var item in Model)
+                {
+
+                    <div class="col-md-3">
+                        <div class="panel panel-default" style="width:100% !important;">
+
+                            <a asp-action="Delete" asp-route-id="@item.InmuebleID" class="close" aria-label="Close" style="color:red; height:25px; width:25px">
+                                <span aria-hidden="true">&times;</span>
+                            </a>
+
+
+                            <!-- <a asp-action="Delete" asp-route-id="@item.InmuebleID" >Eliminar</a>-->
+
+                            <div class="panel-body">
+
+                                <img class="img-responsive" style="width:200px !important; height:200px !important;" src="@item.Imagen.Split('~')[0]" />
+
+                                <div class="container" style="border:1px groove; width:100%; margin-top:+4px">
+                                    <h5 style="font-family: 'Modern No. 20'; color:#175592">@item.Nombre</h5>
+
+                                    <button class="btn btn-default" asp-action="Details" asp-route-id="@item.InmuebleID" style=" margin-left:+20px; color:white; background-color:#175592">Ver mas</button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            ventana modal
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Habitaciones)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Baños)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Parqueo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Opcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Imagen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Observacion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Habitaciones)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Baños)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Parqueo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Opcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Imagen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Observacion)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.InmuebleID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.InmuebleID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.InmuebleID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+    -->

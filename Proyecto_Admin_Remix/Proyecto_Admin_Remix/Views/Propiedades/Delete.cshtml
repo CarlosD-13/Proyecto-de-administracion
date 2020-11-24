@@ -1,0 +1,44 @@
+﻿@model Proyecto_Admin_Remix.Models.Propiedades
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+
+    <div class="container" style="background:#CFCFCF">
+
+        
+
+        
+        <div class="container" style="border: 1px groove; min-height:70vh; background:white">
+            
+            <div class="container" style="margin-left:-4px">
+                <img src="~/images/Logo Inmobiliria.jpg" width="200" height="70" style="margin-top:+130px; margin-left:+300px" />
+                <h1 style="font-family: 'Modern No. 20'; font-size: 30px;
+                        text-align:right; margin-right: +60px; margin-right:+300px; margin-top:-30px">
+                    Inmobiliaria Soriano Perez
+                </h1>
+            </div>
+            
+                <div class="container" style="position:center; border: 1px solid; width:50%; height:50%; background-color:white">
+                    
+
+
+                    <h3>Seguro que quieres eliminar este registro ?</h3>
+                    <hr />
+                    <div>
+                        <h5>@Html.DisplayFor(model => model.Nombre)</h5>
+                        <h5>@Html.DisplayNameFor(model => model.Precio): RD$@Html.DisplayFor(model => model.Precio)</h5>
+
+                        <hr />
+
+                        <form asp-action="Delete" style="margin-bottom:+4px">
+                            <input type="hidden" asp-for="InmuebleID" />
+                            <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+                            <a class="btn btn-primary" asp-action="Index">Cancelar</a>
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </div>

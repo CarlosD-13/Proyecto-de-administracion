@@ -1,0 +1,158 @@
+﻿@model Proyecto_Admin_Remix.Models.Propiedades
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<div class="container">
+
+
+
+
+
+    <div class="container" style="border: 2px solid; width:50%; margin-top:+30px">
+
+        <form asp-action="Create" method="post" style="margin-top:+10px">
+
+
+            <h4>Titulo o Nombre:<input type="text" name="Nombre" placeholder="Escribe el Nombre de la Propiedad" class="form-control" required /></h4>
+            <br />
+            <h4>Habitaciones:<input type="number" name="Habitaciones" placeholder="Escribe el numero de habitaciones" class="form-control" required /></h4>
+            <br />
+            <h4>Baños:<input type="number" min="0" max="14" name="Baño" placeholder="Escribe el numero de baños" class="form-control" required /></h4>
+            <br />
+            <h4>Parqueo:<input type="number" name="Parqueo" placeholder="Escribe el numero de parqueos" class="form-control" required /></h4>
+            <br />
+            <h4>Precio:<input type="text" name="Precio" placeholder="Escribe el Precio de la propiedad" class="form-control" required /></h4>
+            <br />
+            <h4>Imagen:<input type="file" name="invisible" id="invisible" class="form-control" multiple required /></h4>
+            <br />
+            <h4>Observacion:<textarea name="Observacion" rows="10" cols="40" class="form-control" placeholder="Escribe la descripcion de la propiedad" required></textarea></h4>
+            <br />
+            <h4>
+                Seleccione una Opcion:
+                <select name="Opcion" id="Opcion">
+                    <option>Alquilar</option>
+                    <option>Comprar</option>
+                </select>
+            </h4>
+            <br />
+            <input type="hidden" id="Imagen" name="Imagen" multiple />
+
+
+            <button class="btn btn-success" type="submit" id="Agregar" name="Agregar" style="background-color:#175592; color:white" disabled>Adjuntar Informacion</button>
+
+
+
+        </form>
+
+
+        <form action="@Url.Action("Index")" method="post">
+            <button class="btn btn-danger" style="margin-top:-57px; margin-left:+200px; ">Cancelar</button>
+        </form>
+
+        <button class="btn btn-default" id="Aceptar" onclick="handleImgArray()" style="margin-top:-900px; margin-left:+300px; background-color:#175592; color:white">Aceptar Imagen</button>
+    </div>
+</div>
+
+
+
+
+
+
+<script type="text/javascript">
+    async function handleImgArray() {
+        let result = [];
+        let images = [];
+        let Agregar = document.getElementById('Agregar');
+        let input = document.getElementById('invisible');
+        let inputInvisible = document.getElementById('Imagen');
+        images = input.files;
+        for (i = 0; i < images.length; i++) {
+            var img = images[i];
+            let res = await getBlobImage(img);
+            result.push(res);
+        }
+        inputInvisible.value = result.join('~');
+        Agregar.removeAttribute('disabled');
+    }
+
+    async function getBlobImage(img) {
+        const reader = new FileReader();
+        return new Promise((res, rej) => {
+            reader.onloadend = (e) => {
+                res(e.target.result);
+            };
+            if (img) reader.readAsDataURL(img);
+        });
+    }
+</script>
+
+
+
+
+
+<!--
+<h2>Create</h2>
+
+<h4>Propiedades</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Habitaciones" class="control-label"></label>
+                <input asp-for="Habitaciones" class="form-control" />
+                <span asp-validation-for="Habitaciones" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Baños" class="control-label"></label>
+                <input asp-for="Baños" class="form-control" />
+                <span asp-validation-for="Baños" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Parqueo" class="control-label"></label>
+                <input asp-for="Parqueo" class="form-control" />
+                <span asp-validation-for="Parqueo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Opcion" class="control-label"></label>
+                <input asp-for="Opcion" class="form-control" />
+                <span asp-validation-for="Opcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Precio" class="control-label"></label>
+                <input asp-for="Precio" class="form-control" />
+                <span asp-validation-for="Precio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Imagen" class="control-label"></label>
+                <input asp-for="Imagen" class="form-control" />
+                <span asp-validation-for="Imagen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Observacion" class="control-label"></label>
+                <input asp-for="Observacion" class="form-control" />
+                <span asp-validation-for="Observacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+-->
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
